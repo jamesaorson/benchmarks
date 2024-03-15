@@ -24,6 +24,7 @@ jobs:
       with:
         ref: ${{ github.ref }}
         sparse-checkout: |
+          .github
           http/${{ matrix.framework }}
 
     - name: Setup wrk
