@@ -1,23 +1,25 @@
 name: Setup wrk
+description: Setup wrk in local workspace
 
-using: composite
+runs:
+  using: composite
 
-steps:
-  - name: Checkout wrk
-    uses: actions/checkout@v4
-    with:
-      repository: wg/wrk
-      ref: master
+  steps:
+    - name: Checkout wrk
+      uses: actions/checkout@v4
+      with:
+        repository: wg/wrk
+        ref: master
 
-  - name: Install APT dependencies
-    shell: bash
-    run: |
-      sudo apt-get install -y \
-        build-essential \
-        libssl-dev
+    - name: Install APT dependencies
+      shell: bash
+      run: |
+        sudo apt-get install -y \
+          build-essential \
+          libssl-dev
 
-  - name: Build wrk
-    shell: bash
-    run: |
-      make
-      sudo cp wrk /usr/local/bin
+    - name: Build wrk
+      shell: bash
+      run: |
+        make
+        sudo cp wrk /usr/local/bin
