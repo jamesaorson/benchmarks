@@ -17,7 +17,7 @@ runs:
       shell: bash
       run: |
         rm -rf ./wrk
-        git clone https://github.com/wg/wrk.git
+        git clone https://github.com/wg/wrk.git ./wrk
 
     - name: Build wrk
       shell: bash
