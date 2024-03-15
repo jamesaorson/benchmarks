@@ -21,11 +21,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.ref }}
-        sparse-checkout: |
-          .github
-          http/${{ matrix.framework }}
 
     - name: Setup wrk
       uses: ./.github/actions/setup-wrk
