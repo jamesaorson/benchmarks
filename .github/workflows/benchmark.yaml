@@ -1,0 +1,30 @@
+name: Run benchmarks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  http:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        framework:
+        - giraffe
+        - golang
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.ref }}
+        sparse-checkout: |
+          http/${{ matrix.framework }}
+
+    - name: Benchmark ${{ matrix.framework }}
+      run: |
+        ./benchmark.bash ${{ matrix.framework }}
