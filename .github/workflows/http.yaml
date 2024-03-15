@@ -25,6 +25,18 @@ jobs:
         sparse-checkout: |
           http/${{ matrix.framework }}
 
+    - name: Setup .NET
+      if: matrix.framework == 'giraffe'
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Setup Go
+      if: matrix.framework == 'golang'
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.22.x
+
     - name: Benchmark ${{ matrix.framework }}
       run: |
         ./benchmark.bash ${{ matrix.framework }}
