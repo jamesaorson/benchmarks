@@ -16,6 +16,7 @@ runs:
     - name: Checkout wrk
       shell: bash
       run: |
+        rm - rf ./wrk
         git clone https://github.com/wg/wrk.git
 
     - name: Build wrk
