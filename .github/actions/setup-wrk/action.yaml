@@ -17,10 +17,13 @@ runs:
       shell: bash
       run: |
         rm -rf ./wrk
+        ls -la
+        pwd
         git clone https://github.com/wg/wrk.git ./wrk
 
     - name: Build wrk
       shell: bash
+      working-directory: wrk
       run: |
         make
         sudo cp wrk /usr/local/bin
