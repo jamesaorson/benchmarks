@@ -1,4 +1,4 @@
-name: Run benchmarks
+name: HTTP benchmarks
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  http:
+  benchmark:
     runs-on: ubuntu-latest
 
     strategy:
