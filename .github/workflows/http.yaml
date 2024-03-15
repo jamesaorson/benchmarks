@@ -1,0 +1,40 @@
+name: HTTP benchmarks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        framework:
+        - giraffe
+        - golang
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      if: matrix.framework == 'giraffe'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Setup Go
+      if: matrix.framework == 'golang'
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.22.x
+
+    - name: Benchmark ${{ matrix.framework }}
+      working-directory: http
+      run: |
+        ./benchmark.bash ${{ matrix.framework }}

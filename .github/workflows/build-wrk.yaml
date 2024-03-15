@@ -1,0 +1,33 @@
+name: Build wrk
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build-wrk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout wrk
+      uses: actions/checkout@v4
+      with:
+        repository: wg/wrk
+        ref: '4.2.0'
+
+    - name: Install APT dependencies
+      run: |
+        sudo apt-get install -y \
+          build-essential \
+          libssl-dev
+
+    - name: Build wrk
+      run: |
+        make
+        chmod +x ./wrk
+
+    - name: Upload wrk
+      uses: actions/upload-artifact@v4
+      with:
+        name: wrk
+        path: wrk
