@@ -38,6 +38,6 @@ jobs:
         go-version: 1.22.x
 
     - name: Benchmark ${{ matrix.framework }}
-      working-directory: http
+      working-directory: ./http
       run: |
         ./benchmark.bash ${{ matrix.framework }}
