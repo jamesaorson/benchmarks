@@ -26,6 +26,9 @@ jobs:
         sparse-checkout: |
           http/${{ matrix.framework }}
 
+    - name: Setup wrk
+      uses: ./.github/actions/setup-wrk
+
     - name: Setup .NET
       if: matrix.framework == 'giraffe'
       uses: actions/setup-dotnet@v4
