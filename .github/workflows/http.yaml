@@ -33,7 +33,7 @@ jobs:
         bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
 
     - name: Setup Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v5
       if: startsWith(matrix.framework, 'golang-')
       with:
         go-version: 1.22.x
