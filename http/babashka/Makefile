@@ -2,8 +2,10 @@
 
 all: build
 
-build: http.clj
-	bb prepare ./http.clj
+build: build/babashka
 
-run: build
-	bb ./http.clj &
+build/babashka: http.clj
+	bb uberscript ./build/babashka ./http.clj
+
+run: build/babashka
+	bb ./build/babashka &
