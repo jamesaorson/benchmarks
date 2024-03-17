@@ -36,6 +36,7 @@ jobs:
       uses: actions/setup-go@v5
       if: startsWith(matrix.framework, 'golang-')
       with:
+        cache-dependency-path: http/${{ matrix.framework }}/go.sum
         go-version-file: http/${{ matrix.framework }}/go.mod
 
     - name: Setup .NET
