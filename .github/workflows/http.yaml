@@ -16,40 +16,42 @@ jobs:
       fail-fast: false
       matrix:
         framework:
-        - babashka
-        - expressjs
-        - giraffe
-        - golang
-        - rocket
-
+        - babashka-httpkit
+        - csharp-minimal
+        - csharp-mvc
+        - javascript-expressjs
+        - fsharp-giraffe
+        - golang-http
+        - rust-rocket
+        
     steps:
     - uses: actions/checkout@v4
 
     - name: Setup Babashka
-      if: matrix.framework == 'babashka'
+      if: startsWith(matrix.framework, 'babashka-')
       run: |
         bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
 
     - name: Setup Go
       uses: actions/setup-go@v2
-      if: matrix.framework == 'golang'
+      if: startsWith(matrix.framework, 'golang-')
       with:
         go-version: 1.22.x
 
     - name: Setup .NET
-      if: matrix.framework == 'giraffe'
+      if: startsWith(matrix.framework, 'csharp-') || startsWith(matrix.framework, 'fsharp-')
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 7.0.x
     
     - name: Setup Node.js
+      if: startsWith(matrix.framework, 'javascript-')
       uses: actions/setup-node@v4
-      if: matrix.framework == 'expressjs'
       with:
         node-version: 18.x
 
     - name: Setup Rust
-      if: matrix.framework == 'rocket'
+      if: startsWith(matrix.framework, 'rust-')
       run: |
         rustup toolchain install nightly
         rustup default nightly

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -euox pipefail
+set -euo pipefail
 
 cd $(dirname ${BASH_SOURCE[0]})
 
@@ -40,20 +40,20 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             pushd $1
-            language=$(basename $1)
-            echo "[${language}] Benchmarking..."
+            langframe=$(basename $1)
+            echo "[${langframe}] Benchmarking..."
             make
             make run
             # Wait for server to start
             while ! lsof -i :8080 > /dev/null; do sleep 1; done
-            REPORT=../${language}.report
+            REPORT=../${langframe}.report
             rm -f ${REPORT}
             ${WRK} -t12 -c400 -d10s http://127.0.0.1:8080 | tee ${REPORT}
-            echo "[${language}] Benchmarking done!"
+            echo "[${langframe}] Benchmarking done!"
             set +u
             if [[ -z ${GITHUB_RUN_ID} ]]; then
                 # NOTE: do not do this in action, as it will kill the action itself
-                pkill -f ${language} > /dev/null
+                lsof -i :8080 | awk '{print $2}' | tail -n 1 | xargs kill -9
             fi
             set -u
             popd
