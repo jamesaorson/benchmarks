@@ -42,9 +42,10 @@ while [[ $# -gt 0 ]]; do
             pushd $1
             language=$(basename $1)
             echo "[${language}] Benchmarking..."
+            make
             make run
-            # NOTE: Need to wait for the server to start. For babashka, it takes a while to start the first time
-            sleep 10
+            # Wait for server to start
+            while ! lsof -i :8080 > /dev/null; do sleep 1; done
             REPORT=../${language}.report
             rm -f ${REPORT}
             ${WRK} -t12 -c400 -d10s http://127.0.0.1:8080 | tee ${REPORT}

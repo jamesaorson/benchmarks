@@ -3,7 +3,7 @@
 all: build
 
 build: http.clj
-	echo 'haha'
+	bb -f ./http.clj --no-serve
 
 run:
 	bb -f ./http.clj &

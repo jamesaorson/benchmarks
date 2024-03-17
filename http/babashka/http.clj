@@ -4,7 +4,8 @@
          '[clojure.java.browse :as browse]
          '[ruuter.core :as ruuter])
 
-(def port 8080)
+(def BASE-URL "http://localhost")
+(def PORT 8080)
 
 (defn render-text [text & [status]]
   {:status (or status 200)
@@ -21,9 +22,13 @@
 ;; Server
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(when (= *file* (System/getProperty "babashka.file"))
-  (let [url (str "http://localhost:" port "/")]
+(defn serve [base-url port]
+  (let [url (str base-url ":" port "/")]
     (srv/run-server #(ruuter/route routes %) {:port port})
     (println "serving" url)
     (browse/browse-url url)
     @(promise)))
+
+(when (= *file* (System/getProperty "babashka.file"))
+  (when-not (some #(= % "--no-serve") *command-line-args*)
+    (serve BASE-URL PORT)))
