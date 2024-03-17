@@ -36,7 +36,7 @@ jobs:
       uses: actions/setup-go@v5
       if: startsWith(matrix.framework, 'golang-')
       with:
-        go-version: 1.22.x
+        go-version-file: http/${{ matrix.framework }}/go.mod
 
     - name: Setup .NET
       if: startsWith(matrix.framework, 'csharp-') || startsWith(matrix.framework, 'fsharp-')
