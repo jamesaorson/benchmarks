@@ -20,6 +20,7 @@ jobs:
         - expressjs
         - giraffe
         - golang
+        - rocket
 
     steps:
     - uses: actions/checkout@v4
@@ -46,6 +47,13 @@ jobs:
       if: matrix.framework == 'expressjs'
       with:
         node-version: 18.x
+
+    - name: Setup Rust
+      if: matrix.framework == 'rocket'
+      run:
+        rustup toolchain install nightly
+        rustup default nightly
+        cargo version
 
     - name: Benchmark ${{ matrix.framework }}
       working-directory: http

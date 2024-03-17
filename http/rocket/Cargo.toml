@@ -1,0 +1,6 @@
+[package]
+name = "rocket"
+edition = "2021"
+
+[dependencies]
+rocket = "0.5.0"
