@@ -2,8 +2,8 @@
 
 all: build
 
-build:
-	echo "haha, build is a no-op"
+build: http.clj
+	bb prepare ./http.clj
 
 run: build
-	./http.clj
+	bb ./http.clj
