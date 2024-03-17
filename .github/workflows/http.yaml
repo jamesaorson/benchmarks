@@ -16,6 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         framework:
+        - babashka
         - giraffe
         - golang
 
@@ -43,3 +44,8 @@ jobs:
       working-directory: http
       run: |
         ./benchmark.bash ${{ matrix.framework }}
+    
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.framework }}-report
+        path: ./http/${{ matrix.framework }}.report
