@@ -5,5 +5,9 @@ all: build
 build: index.js package.json package-lock.json
 	npm install
 
-run: node_modules
+run: build
 	node ./index.js &
+
+clean:
+	rm -rf ./node_modules
+
