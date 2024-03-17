@@ -3,7 +3,7 @@
 all: build
 
 build: http.clj
-	bb prepare ./http.clj
+	bb -f ./http.clj --only-download-deps
 
-run: build
-	bb ./http.clj &
+run:
+	bb -f ./http.clj &
