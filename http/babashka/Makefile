@@ -2,12 +2,10 @@
 
 all: build
 
-build: build/babashka
+build: http.clj
+	echo 'haha'
 
-build/babashka: http.clj
-	bb uberscript ./build/babashka ./http.clj
-
-run: build/babashka
+run:
 	bb ./build/babashka &
 
 clean:
