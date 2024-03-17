@@ -50,7 +50,7 @@ jobs:
 
     - name: Setup Rust
       if: matrix.framework == 'rocket'
-      run:
+      run: |
         rustup toolchain install nightly
         rustup default nightly
         cargo version
