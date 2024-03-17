@@ -8,4 +8,4 @@ build/golang: main.go
 	go build -o ./build/golang main.go
 
 run: build/golang
-	./build/golang &
+	./build/golang
