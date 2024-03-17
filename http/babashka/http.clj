@@ -30,5 +30,6 @@
     @(promise)))
 
 (when (= *file* (System/getProperty "babashka.file"))
-  (when-not (some #(= % "--no-serve") *command-line-args*)
+  (if (some #(= % "--only-download-deps") *command-line-args*)
+    (System/exit 0)
     (serve BASE-URL PORT)))
