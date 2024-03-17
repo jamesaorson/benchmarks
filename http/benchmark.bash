@@ -44,7 +44,7 @@ while [[ $# -gt 0 ]]; do
             echo "[${language}] Benchmarking..."
             make run
             sleep 5
-            REPORT=./${language}.report
+            REPORT=../${language}.report
             rm -f ${REPORT}
             ${WRK} -t12 -c400 -d10s http://127.0.0.1:8080 | tee ${REPORT}
             echo "[${language}] Benchmarking done!"
