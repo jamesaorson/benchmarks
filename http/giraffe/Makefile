@@ -9,7 +9,7 @@ build:
 	dotnet build --configuration Release
 
 run: build
-	dotnet run --configuration Release
+	dotnet run --configuration Release &
 
 clean:
 	dotnet clean

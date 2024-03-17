@@ -42,7 +42,7 @@ while [[ $# -gt 0 ]]; do
             pushd $1
             language=$(basename $1)
             echo "[${language}] Benchmarking..."
-            make run &
+            make run
             sleep 5
             ${WRK} -t12 -c400 -d10s http://127.0.0.1:8080
             echo "[${language}] Benchmarking done!"
