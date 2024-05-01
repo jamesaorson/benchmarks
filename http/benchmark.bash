@@ -45,7 +45,10 @@ while [[ $# -gt 0 ]]; do
             make
             make run
             # Wait for server to start
-            while ! lsof -i :8080 > /dev/null; do sleep 1; done
+            while ! lsof -i :8080 > /dev/null; do
+                echo "Sleeping while waiting for server to come up"
+                sleep 1
+            done
             REPORT=../${langframe}.report
             rm -f ${REPORT}
             ${WRK} -t12 -c400 -d10s http://127.0.0.1:8080 | tee ${REPORT}
