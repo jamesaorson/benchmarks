@@ -20,7 +20,8 @@ jobs:
         - cl-ningle
         - csharp-minimal
         - csharp-mvc
-        - guile
+        - guile-2
+        - guile-3
         - javascript-expressjs
         - fsharp-giraffe
         - golang-http
