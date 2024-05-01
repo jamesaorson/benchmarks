@@ -10,7 +10,7 @@ build: http.cl
 	sbcl --disable-debugger --userinit $(shell pwd)/.sbclrc --eval "(ql:quickload '(:ningle :clack))" --quit
 
 run:
-	sbcl --disable-debugger --userinit $(shell pwd)/.sbclrc --load http.cl
+	sbcl --disable-debugger --userinit $(shell pwd)/.sbclrc --load http.cl &
 
 clean:
 	rm -rf ~/quicklisp
