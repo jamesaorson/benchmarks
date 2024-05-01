@@ -8,4 +8,4 @@ compiled: http.rkt
 	raco exe ./http.rkt
 
 run: http
-	./http
+	./http &
