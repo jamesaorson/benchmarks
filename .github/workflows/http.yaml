@@ -17,6 +17,7 @@ jobs:
       matrix:
         framework:
         - babashka-httpkit
+        - cl-ningle
         - csharp-minimal
         - csharp-mvc
         - javascript-expressjs
@@ -31,6 +32,18 @@ jobs:
       if: startsWith(matrix.framework, 'babashka-')
       run: |
         bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
+
+    - name: Setup CL
+      if: startsWith(matrix.framework, 'cl-')
+      run: |
+        sudo apt-get install -y sbcl
+        sbcl --version
+
+    - name: Setup Quicklisp
+      uses: melusina-org/setup-quicklisp@v1
+      if: startsWith(matrix.framework, 'cl-')
+      with:
+        implementation: sbcl
 
     - name: Setup Go
       uses: actions/setup-go@v5
