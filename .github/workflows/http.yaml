@@ -20,6 +20,7 @@ jobs:
         - cl-ningle
         - csharp-minimal
         - csharp-mvc
+        - guile
         - javascript-expressjs
         - fsharp-giraffe
         - golang-http
@@ -45,6 +46,18 @@ jobs:
       with:
         cache-dependency-path: http/${{ matrix.framework }}/go.sum
         go-version-file: http/${{ matrix.framework }}/go.mod
+    
+    - name: Setup Guile 2
+      if: startsWith(matrix.framework, 'guile-2')
+      run: |
+        sudo apt-get install -y guile-2.2
+        guile --version
+    
+    - name: Setup Guile 3
+      if: startsWith(matrix.framework, 'guile-3')
+      run: |
+        sudo apt-get install -y guile-3.0
+        guile --version
 
     - name: Setup .NET
       if: startsWith(matrix.framework, 'csharp-') || startsWith(matrix.framework, 'fsharp-')
