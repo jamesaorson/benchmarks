@@ -25,6 +25,7 @@ jobs:
         - javascript-expressjs
         - fsharp-giraffe
         - golang-http
+        - racket-servlet
         - rust-rocket
         
     steps:
@@ -71,6 +72,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 18.x
+
+    - name: Setup Racket
+      if: startsWith(matrix.framework, 'racket-')
+      run: |
+        sudo apt-get install -y racket
+        raco version
 
     - name: Setup Rust
       if: startsWith(matrix.framework, 'rust-')
