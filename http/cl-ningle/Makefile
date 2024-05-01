@@ -5,11 +5,9 @@ all: build
 build: http.cl
 	echo "install quicklisp"
 	curl -O https://beta.quicklisp.org/quicklisp.lisp
-	sbcl --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql:add-to-init-file)' --quit
+	sbcl --disable-debugger --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --quit
 	echo "install cl-ningle"
-	sbcl --eval '(ql:quickload :cl-ningle)' --quit
-	echo "build http.cl"
-	sbcl --load http.cl --eval '(quit)'
+	sbcl --disable-debugger --load quicklisp.lisp --eval "(ql:quickload '(:ningle :clack))" --quit
 
 run:
-	sbcl --script http.cl &
+	sbcl --disable-debugger --load http.cl

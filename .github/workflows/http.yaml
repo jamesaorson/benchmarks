@@ -39,12 +39,6 @@ jobs:
         sudo apt-get install -y sbcl
         sbcl --version
 
-    - name: Setup Quicklisp
-      uses: melusina-org/setup-quicklisp@v1
-      if: startsWith(matrix.framework, 'cl-')
-      with:
-        implementation: sbcl
-
     - name: Setup Go
       uses: actions/setup-go@v5
       if: startsWith(matrix.framework, 'golang-')
