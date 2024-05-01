@@ -77,7 +77,6 @@ jobs:
       if: startsWith(matrix.framework, 'racket-')
       run: |
         sudo apt-get install -y racket
-        raco version
 
     - name: Setup Rust
       if: startsWith(matrix.framework, 'rust-')
