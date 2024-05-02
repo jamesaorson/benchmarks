@@ -27,6 +27,7 @@ jobs:
         - golang-http
         - racket-servlet
         - rust-rocket
+        - zig-std
         
     steps:
     - uses: actions/checkout@v4
@@ -84,6 +85,11 @@ jobs:
         rustup toolchain install nightly
         rustup default nightly
         cargo version
+
+    - name: Setup Zig
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.12.0
 
     - name: Benchmark ${{ matrix.framework }}
       working-directory: http
