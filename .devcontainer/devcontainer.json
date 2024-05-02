@@ -1,0 +1,14 @@
+{
+	"name": "Ubuntu",
+	"build": { "dockerfile": "Dockerfile" },
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"reditorsupport.r",
+				"betterthantomorrow.calva",
+				"ms-azuretools.vscode-docker",
+				"golang.go"
+			]
+		}
+	}
+}
