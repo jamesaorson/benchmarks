@@ -10,24 +10,35 @@ on:
   workflow_dispatch:
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      frameworks: ${{ steps.matrix.outputs.frameworks }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Generate http matrix
+      id: matrix
+      working-directory: http
+      run: |
+        FRAMEWORKS="["
+        for framework in $(ls -d */); do
+          FRAMEWORKS="${FRAMEWORKS}\"${framework::-1}\","
+        done
+        FRAMEWORKS="${FRAMEWORKS}]"
+        echo ${FRAMEWORKS}
+        echo "frameworks=${FRAMEWORKS}" >> ${GITHUB_OUTPUT}
+
   benchmark:
     runs-on: ubuntu-latest
+    needs:
+    - setup
 
     strategy:
       fail-fast: false
       matrix:
-        framework:
-        - babashka-httpkit
-        - cl-ningle
-        - csharp-minimal
-        - csharp-mvc
-        - guile-2
-        - guile-3
-        - javascript-expressjs
-        - fsharp-giraffe
-        - golang-http
-        - racket-servlet
-        - rust-rocket
+        framework: ${{fromJson(needs.setup.outputs.frameworks)}}
         
     steps:
     - uses: actions/checkout@v4
@@ -95,3 +106,25 @@ jobs:
       with:
         name: ${{ matrix.framework }}-report
         path: ./http/${{ matrix.framework }}.report
+
+  pass:
+    runs-on: ubuntu-latest
+    if: success()
+
+    needs:
+    - benchmark
+
+    steps:
+    - name: Pass
+      run: echo "All benchmarks passed"
+  
+  fail:
+    runs-on: ubuntu-latest
+    if: failure()
+
+    needs:
+    - benchmark
+
+    steps:
+    - name: Fail
+      run: echo "Some benchmarks failed"
